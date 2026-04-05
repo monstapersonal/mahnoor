@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tere Liye, Mahnoor 🌙</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Laila:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0612;
+      --surface: #130d1e;
+      --accent1: #e8a0bf;
+      --accent2: #c77dff;
+      --accent3: #ffd6ff;
+      --gold: #f4c97e;
+      --text: #f0e6ff;
+      --muted: #9b84b8;
+    }
+ 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    html { scroll-behavior: smooth; }
+ 
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Laila', serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+ 
+    .cursor {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--accent1);
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--accent2);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: all 0.15s ease;
+      opacity: 0.5;
+    }
+ 
+    #stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+ 
+    .particle {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      animation: floatParticle linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatParticle {
+      0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.4; }
+      100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+    }
+ 
+    .page { position: relative; z-index: 2; }
+ 
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+ 
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(199,125,255,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+      50%       { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+    }
+ 
+    .moon-emoji {
+      font-size: clamp(3rem, 8vw, 6rem);
+      animation: moonFloat 3s ease-in-out infinite;
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50%       { transform: translateY(-18px) rotate(5deg); }
+    }
+ 
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 10vw, 7rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent3) 0%, var(--accent1) 50%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeUp 1s ease both;
+    }
+ 
+    .hero-sub {
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      color: var(--muted);
+      margin-top: 1rem;
+      font-style: italic;
+      animation: fadeUp 1s 0.3s ease both;
+    }
+ 
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .scroll-hint::after {
+      content: '↓';
+      display: block;
+      text-align: center;
+      margin-top: 0.3rem;
+      font-size: 1.2rem;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(8px); }
+    }
+ 
+    section {
+      padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 5vw, 4rem);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+ 
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 0.7rem;
+    }
+ 
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      color: var(--accent3);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+ 
+    p {
+      color: #c5b5df;
+      line-height: 1.9;
+      font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    }
+ 
+    .divider {
+      display: flex; align-items: center; gap: 1rem;
+      max-width: 900px; margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+    }
+    .divider::before, .divider::after {
+      content: ''; flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent2), transparent);
+    }
+    .divider span { color: var(--accent1); font-size: 1.2rem; }
+ 
+    /* CARDS */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+ 
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(199,125,255,0.2);
+      border-radius: 20px;
+      padding: 1.8rem;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent2), var(--accent1));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .card:hover::before { opacity: 1; }
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(199,125,255,0.5);
+      box-shadow: 0 20px 60px rgba(199,125,255,0.15);
+    }
+    .card-icon { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .card p { font-size: 0.92rem; color: var(--muted); line-height: 1.7; }
+ 
+    /* LETTER */
+    .letter-box {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(232,160,191,0.25);
+      border-radius: 24px;
+      padding: clamp(2rem, 5vw, 3.5rem);
+      position: relative;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+    .letter-box::after {
+      content: '✦';
+      position: absolute;
+      bottom: 1.5rem; right: 2rem;
+      font-size: 2rem;
+      color: var(--accent1);
+      opacity: 0.3;
+      animation: spin 8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .letter-box p { margin-bottom: 1rem; color: #d4c0ee; }
+    .letter-box p:last-of-type { margin-bottom: 0; }
+    .letter-sig {
+      text-align: right;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+    }
+ 
+    /* QUOTE */
+    .quote-wrap {
+      text-align: center;
+      padding: clamp(3rem, 8vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .quote-wrap blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 4vw, 2.2rem);
+      font-style: italic;
+      color: var(--accent3);
+      line-height: 1.5;
+      max-width: 700px;
+      margin: 0 auto 1rem;
+    }
+    .quote-wrap cite { color: var(--muted); font-size: 0.9rem; letter-spacing: 0.1em; }
+ 
+    /* FINAL */
+    .final {
+      text-align: center;
+      min-height: 60vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 4rem 2rem;
+    }
+    .heart-burst {
+      font-size: clamp(3rem, 10vw, 6rem);
+      display: block;
+      margin-bottom: 1rem;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14%       { transform: scale(1.15); }
+      28%       { transform: scale(1); }
+      42%       { transform: scale(1.08); }
+      56%       { transform: scale(1); }
+    }
+    .final h2 {
+      font-size: clamp(2rem, 7vw, 4.5rem);
+      background: linear-gradient(135deg, var(--gold), var(--accent1), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+    .final p { color: var(--muted); margin-top: 1rem; max-width: 500px; }
+ 
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: rgba(155,132,184,0.4);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+    }
+ 
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+ 
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.25s; }
+    .reveal-d3 { transition-delay: 0.4s; }
+    .reveal-d4 { transition-delay: 0.55s; }
+ 
+    @media (max-width: 600px) { .cards { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+ 
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <canvas id="stars"></canvas>
+ 
+  <div class="page">
+ 
+    <div class="hero">
+      <div class="hero-glow"></div>
+      <span class="moon-emoji">🌙</span>
+      <h1>Mahnoor</h1>
+      <p class="hero-sub">Ek random video call... ek yaadon ki duniya ✨</p>
+      <div class="scroll-hint">Neeche aao</div>
+    </div>
+ 
+    <div class="divider"><span>✦</span></div>
+ 
+    <section>
+      <div class="section-label reveal">Hamari Kahani</div>
+      <h2 class="reveal reveal-d1">Ek Screen, Do Log 💫</h2>
+      <p class="reveal reveal-d2">
+        Sochte hai na kabhi — ke ek random app pe ek random call se koi itna khaas kaise ban jata hai?
+        Aap mili ek aise waqt jab sab normal tha, lekin baat karte karte kuch different hi feel hua.
+        Aap se baat karna hamesha acha lagta hai bas genuine connection. 🌸
+      </p>
+    </section>
+ 
+    <section>
+      <div class="section-label reveal">Chhoti Chhoti Yaadein</div>
+      <h2 class="reveal reveal-d1">Jo Bhoolna Mushkil Hai</h2>
+      <div class="cards">
+        <div class="card reveal reveal-d1">
+          <span class="card-icon">📱</span>
+          <h3>Pehli Baat</h3>
+          <p>Jab pehli baar connect hua, socha tha bas 5 minute ki baat hogi — ghante nikal gaye! 😄</p>
+        </div>
+        <div class="card reveal reveal-d2">
+          <span class="card-icon">😂</span>
+          <h3>Hassi Wale Pal</h3>
+          <p>Kuch baatein itni funny hoti hain ke screen ke saath saath dil bhi muskurata hai.</p>
+        </div>
+        <div class="card reveal reveal-d3">
+          <span class="card-icon">🌙</span>
+          <h3>Raat ki Baatein</h3>
+          <p>Raat ko jo baat hoti hai — woh honest hoti hai, woh real hoti hai. Aap ke saath waisi hi hoti hai.</p>
+        </div>
+        <div class="card reveal reveal-d4">
+          <span class="card-icon">💬</span>
+          <h3>Sach Bolna</h3>
+          <p>Aap se jhooth bolne ki zaroorat hi nahi — aap samajhti ho, bina judge kiye</p>
+        </div>
+      </div>
+    </section>
+ 
+    <div class="quote-wrap">
+      <blockquote class="reveal">"Kuch rishtey anokhe hote hain — chahe hum kitne bhi duur kyu na ho."</blockquote>
+      <cite class="reveal reveal-d1">— Aapke baare mein sochte waqt 🌷</cite>
+    </div>
+ 
+    <div class="divider"><span>✦</span></div>
+ 
+    <section>
+      <div class="section-label reveal">Dil Se</div>
+      <h2 class="reveal reveal-d1">Ek Chhota Sa Khat 💌</h2>
+      <div class="letter-box reveal reveal-d2">
+        <p>Dear Mahnoor,</p>
+        <p>
+          Pata nahi aap yeh page kab dekh rahi ho — but jab bhi dekho, yeh jaano ke aap sach mein ek
+          achhi insaan ho. Aap ki baat karne ki style, aap ki honesty — sab kuch different hai.
+        </p>
+        <p>
+          Internet pe bahut log milte hain, but kuch log hote hain jo actually yaad rehte hai.
+          Aap un logo mein se ho. 🌙
+        </p>
+        <p>
+          Jab bhi raat ko akela feel ho, jab bhi kuch share karna ho — yeh page hamesha yahan rahega,
+          as a reminder ke ek banda tha jo aapka genuine dost bana — screens ke paar se. ✨
+        </p>
+        <div class="letter-sig">— Aapka dost 🌸</div>
+      </div>
+    </section>
+ 
+    <div class="final">
+      <span class="heart-burst">💜</span>
+      <h2 class="reveal">Yaad Rakhna</h2>
+      <p class="reveal reveal-d1">Aap special ho, Mahnoor. Aur yeh ek random webpage aapko hamesha yaad dilayega. 🌙✨</p>
+    </div>
+ 
+    <footer>Made with dil 💜 &nbsp;•&nbsp; Sirf Mahnoor ke liye</footer>
+  </div>
+ 
+  <script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    (function animCursor() {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    })();
+ 
+    // Stars
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+    const stars = Array.from({length: 200}, () => ({
+      x: Math.random(), y: Math.random(),
+      r: Math.random() * 1.5 + 0.3,
+      phase: Math.random() * Math.PI * 2
+    }));
+    (function drawStars(t) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        const alpha = 0.1 + 0.75 * (0.5 + 0.5 * Math.sin(t * 0.001 + s.phase));
+        ctx.beginPath();
+        ctx.arc(s.x * canvas.width, s.y * canvas.height, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(drawStars);
+    })(0);
+ 
+    // Floating particles
+    const colors = ['#e8a0bf','#c77dff','#ffd6ff','#f4c97e'];
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 6 + 3;
+      p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}vw;background:${colors[i%4]};animation-duration:${8+Math.random()*12}s;animation-delay:${Math.random()*10}s;`;
+      document.body.appendChild(p);
+    }
+ 
+    // Scroll reveal
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
